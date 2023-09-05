@@ -1,5 +1,21 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
+import axios from 'axios';
 function App() {
+  const [students, setStudents] = useState('');
+  
+  useEffect(()=>{
+    fetchStudents();
+  },[]);
+
+  const fetchStudents = () =>{
+    axios.get('http://localhost:4000/')
+    .then((response)=>{
+      setStudents(response.data);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  }
   return (
     <>  
         <div className='container d-flex justify-content-center mt-4'>
@@ -30,16 +46,27 @@ function App() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Student name</td>
-                    <td>Student roll</td>
-                    <td>
-                      <div className='form-group mx-sm-3 mb-2 d-flex'>
-                      <button className='btn btn-success me-2'>Edit</button>
-                      <button className='btn btn-danger '>Delete</button>
-                      </div>
-                    </td>
-                  </tr>
+                  {!students?(
+                    <p>No students</p>
+                  ):(
+                    <>
+                      {students.map((data)=>(
+                        <tr key={data.id}>
+                            <td scope='col'>{data.name}</td>
+                            <td scope='col'>{data.rollno}</td>
+                          <td>
+                            <div className='form-group mx-sm-3 mb-2 d-flex'>
+                            <button className='btn btn-success me-2'>Edit</button>
+                            <button className='btn btn-danger '>Delete</button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+
+                      }
+                    </>
+                  )
+                }
                 </tbody>
               </table>
             </div>
