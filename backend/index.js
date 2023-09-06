@@ -10,7 +10,7 @@ app.use(cors());
 const PORT = 4000;
 
 //connecting our database
-mongoose.connect('mongodb://127.0.0.1:27017/student',{
+mongoose.connect('mongodb+srv://premyesh32:Premscluster@cluster0.efdrxlu.mongodb.net/student',{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
