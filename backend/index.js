@@ -48,6 +48,17 @@ app.get('/', async(req,res)=>{
     }
 })
 
+//Delete a student
+app.delete('/:id',async(req,res)=>{
+    try{
+        const Id = req.params.id;
+        const deleteDatails = await Student.deleteOne({_id: Id});
+        res.status(200).send({message:"Deleted successfully!"});
+    } catch(error){
+        res.status(500).send("Error: ",error);
+    }
+})
+
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
 })
